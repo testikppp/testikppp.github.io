@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Settings, Play, Pause, RotateCcw } from 'lucide-react';
+import { Settings, Play, Pause, RotateCcw, Trophy, Target, TrendingUp } from 'lucide-react';
 
 const PingPongGame = () => {
   const canvasRef = useRef(null);
@@ -13,6 +13,21 @@ const PingPongGame = () => {
     winCondition: 10
   });
   const [showSettings, setShowSettings] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  const [screenSize, setScreenSize] = useState({ width: 800, height: 400 });
+  
+  // Load stats from localStorage
+  const [gameStats, setGameStats] = useState(() => {
+    const saved = localStorage.getItem('neonPongStats');
+    return saved ? JSON.parse(saved) : {
+      gamesPlayed: 0,
+      wins: 0,
+      losses: 0,
+      totalScore: 0,
+      bestWinStreak: 0,
+      currentWinStreak: 0
+    };
+  });
 
   // Game objects
   const gameObjects = useRef({
