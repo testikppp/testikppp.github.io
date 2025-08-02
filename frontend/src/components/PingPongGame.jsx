@@ -85,20 +85,26 @@ const PingPongGame = () => {
   const resetGame = () => {
     setScore({ player: 0, bot: 0 });
     const { canvas } = gameObjects.current;
+    const widthRatio = canvas.width / 800;
+    const heightRatio = canvas.height / 400;
+    
     gameObjects.current.ball = {
       x: canvas.width / 2,
       y: canvas.height / 2,
-      vx: Math.random() > 0.5 ? 5 : -5,
-      vy: (Math.random() - 0.5) * 4,
-      size: 8
+      vx: (Math.random() > 0.5 ? 5 : -5) * widthRatio,
+      vy: (Math.random() - 0.5) * 4 * heightRatio,
+      size: 8 * Math.min(widthRatio, heightRatio)
     };
-    gameObjects.current.playerPaddle.y = canvas.height / 2 - 40;
-    gameObjects.current.botPaddle.y = canvas.height / 2 - 40;
+    gameObjects.current.playerPaddle.y = canvas.height / 2 - (40 * heightRatio);
+    gameObjects.current.botPaddle.y = canvas.height / 2 - (40 * heightRatio);
+    gameObjects.current.playerPaddle.height = 80 * heightRatio;
+    gameObjects.current.botPaddle.height = 80 * heightRatio;
   };
 
   const movePlayerPaddle = (direction) => {
     const { playerPaddle, canvas } = gameObjects.current;
-    const newY = playerPaddle.y + (direction === 'up' ? -playerPaddle.speed : playerPaddle.speed);
+    const speed = playerPaddle.speed * (canvas.height / 400);
+    const newY = playerPaddle.y + (direction === 'up' ? -speed : speed);
     if (newY >= 0 && newY + playerPaddle.height <= canvas.height) {
       playerPaddle.y = newY;
     }
