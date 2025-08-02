@@ -283,23 +283,23 @@ const PingPongGame = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col items-center justify-center p-2 md:p-4">
+      <div className="w-full max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-6">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+        <div className="text-center mb-4 md:mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
             NEON PONG
           </h1>
-          <p className="text-gray-300">Ultimate RGB Ping Pong Experience</p>
+          <p className="text-sm md:text-base text-gray-300">Ultimate RGB Ping Pong Experience</p>
         </div>
 
         {/* Game Area */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-4 md:mb-6">
           <div className="relative">
             <canvas 
               ref={canvasRef}
-              width={800}
-              height={400}
+              width={screenSize.width}
+              height={screenSize.height}
               className="border-2 border-cyan-400 rounded-lg shadow-2xl shadow-cyan-400/20 bg-gray-900"
               style={{ filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))' }}
             />
@@ -307,10 +307,10 @@ const PingPongGame = () => {
             {/* Game State Overlays */}
             {gameState === 'menu' && (
               <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <h2 className="text-4xl font-bold text-cyan-400 mb-4">Ready to Play?</h2>
-                  <Button onClick={startGame} className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white px-8 py-3 text-lg">
-                    <Play className="mr-2 h-5 w-5" />
+                <div className="text-center px-4">
+                  <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 mb-4">Ready to Play?</h2>
+                  <Button onClick={startGame} className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg">
+                    <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                     Start Game
                   </Button>
                 </div>
@@ -319,10 +319,10 @@ const PingPongGame = () => {
             
             {gameState === 'paused' && (
               <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <h2 className="text-4xl font-bold text-yellow-400 mb-4">PAUSED</h2>
-                  <Button onClick={pauseGame} className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-8 py-3 text-lg">
-                    <Play className="mr-2 h-5 w-5" />
+                <div className="text-center px-4">
+                  <h2 className="text-2xl md:text-4xl font-bold text-yellow-400 mb-4">PAUSED</h2>
+                  <Button onClick={pauseGame} className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg">
+                    <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                     Resume
                   </Button>
                 </div>
@@ -331,14 +331,14 @@ const PingPongGame = () => {
             
             {gameState === 'gameOver' && (
               <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <h2 className="text-4xl font-bold text-pink-400 mb-2">GAME OVER</h2>
-                  <p className="text-2xl text-white mb-4">
-                    {score.player > score.bot ? 'YOU WIN!' : 'BOT WINS!'}
+                <div className="text-center px-4">
+                  <h2 className="text-2xl md:text-4xl font-bold text-pink-400 mb-2">GAME OVER</h2>
+                  <p className="text-xl md:text-2xl text-white mb-2">
+                    {score.player > score.bot ? '🏆 YOU WIN!' : '🤖 BOT WINS!'}
                   </p>
-                  <p className="text-lg text-gray-300 mb-6">Final Score: {score.player} - {score.bot}</p>
-                  <Button onClick={() => setGameState('menu')} className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-8 py-3 text-lg">
-                    <RotateCcw className="mr-2 h-5 w-5" />
+                  <p className="text-sm md:text-lg text-gray-300 mb-4 md:mb-6">Final Score: {score.player} - {score.bot}</p>
+                  <Button onClick={() => setGameState('menu')} className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg">
+                    <RotateCcw className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                     Play Again
                   </Button>
                 </div>
@@ -348,77 +348,106 @@ const PingPongGame = () => {
         </div>
 
         {/* Score Display */}
-        <div className="flex justify-center mb-6">
-          <div className="flex items-center space-x-8">
+        <div className="flex justify-center mb-4 md:mb-6">
+          <div className="flex items-center space-x-4 md:space-x-8">
             <div className="text-center">
-              <p className="text-cyan-400 text-lg font-semibold">PLAYER</p>
-              <p className="text-4xl font-bold text-white">{score.player}</p>
+              <p className="text-cyan-400 text-sm md:text-lg font-semibold">PLAYER</p>
+              <p className="text-2xl md:text-4xl font-bold text-white">{score.player}</p>
             </div>
-            <div className="text-6xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+            <div className="text-3xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
               VS
             </div>
             <div className="text-center">
-              <p className="text-pink-400 text-lg font-semibold">BOT</p>
-              <p className="text-4xl font-bold text-white">{score.bot}</p>
+              <p className="text-pink-400 text-sm md:text-lg font-semibold">BOT</p>
+              <p className="text-2xl md:text-4xl font-bold text-white">{score.bot}</p>
             </div>
           </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex justify-center space-x-4 mb-6">
-          <div className="flex flex-col space-y-2">
-            <Button 
-              onMouseDown={() => movePlayerPaddle('up')}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 py-3 text-lg font-semibold"
-              disabled={gameState !== 'playing'}
-            >
-              ↑ UP
-            </Button>
-            <Button 
-              onMouseDown={() => movePlayerPaddle('down')}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 py-3 text-lg font-semibold"
-              disabled={gameState !== 'playing'}
-            >
-              ↓ DOWN
-            </Button>
+        {/* Mobile-First Control Layout */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 mb-4 md:mb-6">
+          
+          {/* Paddle Controls - Large and Touch Friendly */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-cyan-400 text-center font-semibold text-sm md:text-base">PADDLE CONTROL</h3>
+            <div className="flex flex-col gap-3">
+              <Button 
+                onMouseDown={() => movePlayerPaddle('up')}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  movePlayerPaddle('up');
+                }}
+                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
+                disabled={gameState !== 'playing'}
+              >
+                ↑ UP
+              </Button>
+              <Button 
+                onMouseDown={() => movePlayerPaddle('down')}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  movePlayerPaddle('down');
+                }}
+                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
+                disabled={gameState !== 'playing'}
+              >
+                ↓ DOWN
+              </Button>
+            </div>
           </div>
           
-          <div className="flex flex-col space-y-2">
+          {/* Game Controls - Large and Accessible */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-purple-400 text-center font-semibold text-sm md:text-base">GAME CONTROL</h3>
+            <div className="flex flex-col gap-3">
+              <Button 
+                onClick={gameState === 'playing' ? pauseGame : startGame}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
+              >
+                {gameState === 'playing' ? <Pause className="mr-3 h-6 w-6" /> : <Play className="mr-3 h-6 w-6" />}
+                {gameState === 'playing' ? 'PAUSE' : 'PLAY'}
+              </Button>
+              <Button 
+                onClick={() => setShowSettings(!showSettings)}
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
+              >
+                <Settings className="mr-3 h-6 w-6" />
+                SETTINGS
+              </Button>
+            </div>
+          </div>
+
+          {/* Stats Button */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-green-400 text-center font-semibold text-sm md:text-base">STATISTICS</h3>
             <Button 
-              onClick={gameState === 'playing' ? pauseGame : startGame}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-3 text-lg font-semibold"
+              onClick={() => setShowStats(!showStats)}
+              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
             >
-              {gameState === 'playing' ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />}
-              {gameState === 'playing' ? 'PAUSE' : 'PLAY'}
-            </Button>
-            <Button 
-              onClick={() => setShowSettings(!showSettings)}
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-6 py-3 text-lg font-semibold"
-            >
-              <Settings className="mr-2 h-5 w-5" />
-              SETTINGS
+              <Trophy className="mr-3 h-6 w-6" />
+              STATS
             </Button>
           </div>
         </div>
 
         {/* Settings Panel */}
         {showSettings && (
-          <div className="flex justify-center">
-            <Card className="bg-gray-800/90 border-cyan-400/50 p-6 max-w-md w-full">
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4 text-center">GAME SETTINGS</h3>
+          <div className="flex justify-center mb-4 md:mb-6">
+            <Card className="bg-gray-800/95 border-cyan-400/50 p-4 md:p-6 max-w-lg w-full mx-2">
+              <h3 className="text-xl md:text-2xl font-bold text-cyan-400 mb-4 text-center">🎮 GAME SETTINGS</h3>
               
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
-                  <label className="block text-white text-sm font-semibold mb-2">DIFFICULTY</label>
-                  <div className="flex space-x-2">
+                  <label className="block text-white text-base md:text-lg font-semibold mb-3">DIFFICULTY LEVEL</label>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3">
                     {['Easy', 'Medium', 'Hard'].map(level => (
                       <Button
                         key={level}
                         onClick={() => setSettings(prev => ({ ...prev, difficulty: level }))}
-                        className={`px-4 py-2 ${
+                        className={`px-4 md:px-6 py-3 md:py-4 text-base md:text-lg font-semibold ${
                           settings.difficulty === level
-                            ? 'bg-gradient-to-r from-cyan-500 to-purple-500'
-                            : 'bg-gray-700 hover:bg-gray-600'
+                            ? 'bg-gradient-to-r from-cyan-500 to-purple-500 text-white'
+                            : 'bg-gray-700 hover:bg-gray-600 text-gray-200'
                         }`}
                       >
                         {level}
@@ -428,16 +457,16 @@ const PingPongGame = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-white text-sm font-semibold mb-2">WIN CONDITION</label>
-                  <div className="flex space-x-2">
+                  <label className="block text-white text-base md:text-lg font-semibold mb-3">WIN CONDITION</label>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3">
                     {[5, 10, 20].map(points => (
                       <Button
                         key={points}
                         onClick={() => setSettings(prev => ({ ...prev, winCondition: points }))}
-                        className={`px-4 py-2 ${
+                        className={`px-4 md:px-6 py-3 md:py-4 text-base md:text-lg font-semibold ${
                           settings.winCondition === points
-                            ? 'bg-gradient-to-r from-pink-500 to-purple-500'
-                            : 'bg-gray-700 hover:bg-gray-600'
+                            ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white'
+                            : 'bg-gray-700 hover:bg-gray-600 text-gray-200'
                         }`}
                       >
                         {points} Points
@@ -445,6 +474,76 @@ const PingPongGame = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {/* Statistics Panel */}
+        {showStats && (
+          <div className="flex justify-center mb-4 md:mb-6">
+            <Card className="bg-gray-800/95 border-green-400/50 p-4 md:p-6 max-w-2xl w-full mx-2">
+              <h3 className="text-xl md:text-2xl font-bold text-green-400 mb-4 text-center">📊 GAME STATISTICS</h3>
+              
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-cyan-400/30">
+                  <Target className="h-8 w-8 text-cyan-400 mx-auto mb-2" />
+                  <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.gamesPlayed}</p>
+                  <p className="text-xs md:text-sm text-cyan-400">Games Played</p>
+                </div>
+                
+                <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-green-400/30">
+                  <Trophy className="h-8 w-8 text-green-400 mx-auto mb-2" />
+                  <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.wins}</p>
+                  <p className="text-xs md:text-sm text-green-400">Wins</p>
+                </div>
+                
+                <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-red-400/30">
+                  <TrendingUp className="h-8 w-8 text-red-400 mx-auto mb-2" />
+                  <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.losses}</p>
+                  <p className="text-xs md:text-sm text-red-400">Losses</p>
+                </div>
+                
+                <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-yellow-400/30">
+                  <div className="text-2xl mb-2">🏆</div>
+                  <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.bestWinStreak}</p>
+                  <p className="text-xs md:text-sm text-yellow-400">Best Streak</p>
+                </div>
+                
+                <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-purple-400/30">
+                  <div className="text-2xl mb-2">🔥</div>
+                  <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.currentWinStreak}</p>
+                  <p className="text-xs md:text-sm text-purple-400">Current Streak</p>
+                </div>
+                
+                <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-pink-400/30">
+                  <div className="text-2xl mb-2">📈</div>
+                  <p className="text-2xl md:text-3xl font-bold text-white">
+                    {gameStats.gamesPlayed > 0 ? Math.round((gameStats.wins / gameStats.gamesPlayed) * 100) : 0}%
+                  </p>
+                  <p className="text-xs md:text-sm text-pink-400">Win Rate</p>
+                </div>
+              </div>
+              
+              <div className="mt-4 text-center">
+                <Button 
+                  onClick={() => {
+                    if (window.confirm('Are you sure you want to reset all statistics?')) {
+                      const resetStats = {
+                        gamesPlayed: 0,
+                        wins: 0,
+                        losses: 0,
+                        totalScore: 0,
+                        bestWinStreak: 0,
+                        currentWinStreak: 0
+                      };
+                      setGameStats(resetStats);
+                    }
+                  }}
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-2 text-sm"
+                >
+                  Reset Stats
+                </Button>
               </div>
             </Card>
           </div>
