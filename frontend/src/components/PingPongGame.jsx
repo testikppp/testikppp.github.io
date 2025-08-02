@@ -233,6 +233,20 @@ const PingPongGame = () => {
       
       // Check win condition
       if (score.player >= settings.winCondition || score.bot >= settings.winCondition) {
+        // Update stats
+        const playerWon = score.player >= settings.winCondition;
+        setGameStats(prev => ({
+          ...prev,
+          gamesPlayed: prev.gamesPlayed + 1,
+          wins: playerWon ? prev.wins + 1 : prev.wins,
+          losses: playerWon ? prev.losses : prev.losses + 1,
+          totalScore: prev.totalScore + score.player,
+          currentWinStreak: playerWon ? prev.currentWinStreak + 1 : 0,
+          bestWinStreak: playerWon && prev.currentWinStreak + 1 > prev.bestWinStreak 
+            ? prev.currentWinStreak + 1 
+            : prev.bestWinStreak
+        }));
+        
         setGameState('gameOver');
         return;
       }
