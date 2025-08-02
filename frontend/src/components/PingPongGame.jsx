@@ -37,6 +37,44 @@ const PingPongGame = () => {
     canvas: { width: 800, height: 400 }
   });
 
+  // Update screen size for responsive design
+  useEffect(() => {
+    const updateScreenSize = () => {
+      const maxWidth = Math.min(window.innerWidth - 40, 1200);
+      const maxHeight = Math.min(window.innerHeight - 300, 600);
+      const aspectRatio = 2; // 2:1 aspect ratio
+      
+      let width = maxWidth;
+      let height = width / aspectRatio;
+      
+      if (height > maxHeight) {
+        height = maxHeight;
+        width = height * aspectRatio;
+      }
+      
+      setScreenSize({ width, height });
+      gameObjects.current.canvas = { width, height };
+      
+      // Update paddle and ball positions proportionally
+      const widthRatio = width / 800;
+      const heightRatio = height / 400;
+      
+      gameObjects.current.playerPaddle.x = 50 * widthRatio;
+      gameObjects.current.botPaddle.x = width - 65 * widthRatio;
+      gameObjects.current.ball.x = width / 2;
+      gameObjects.current.ball.y = height / 2;
+    };
+    
+    updateScreenSize();
+    window.addEventListener('resize', updateScreenSize);
+    return () => window.removeEventListener('resize', updateScreenSize);
+  }, []);
+
+  // Save stats to localStorage
+  useEffect(() => {
+    localStorage.setItem('neonPongStats', JSON.stringify(gameStats));
+  }, [gameStats]);
+
   // Difficulty settings
   const difficulties = {
     Easy: { botSpeed: 4, botReaction: 0.7 },
