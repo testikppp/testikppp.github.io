@@ -115,13 +115,14 @@ const PingPongGame = () => {
     const difficulty = difficulties[settings.difficulty];
     const paddleCenter = botPaddle.y + botPaddle.height / 2;
     const ballY = ball.y;
+    const scaledSpeed = difficulty.botSpeed * (canvas.height / 400);
     
     // Bot AI with reaction based on difficulty
     if (Math.random() < difficulty.botReaction) {
       const diff = ballY - paddleCenter;
       if (Math.abs(diff) > 10) {
         const direction = diff > 0 ? 1 : -1;
-        const newY = botPaddle.y + direction * difficulty.botSpeed;
+        const newY = botPaddle.y + direction * scaledSpeed;
         if (newY >= 0 && newY + botPaddle.height <= canvas.height) {
           botPaddle.y = newY;
         }
@@ -146,7 +147,7 @@ const PingPongGame = () => {
         ball.y >= playerPaddle.y && ball.y <= playerPaddle.y + playerPaddle.height) {
       if (ball.vx < 0) {
         ball.vx = -ball.vx;
-        ball.vy += (Math.random() - 0.5) * 2;
+        ball.vy += (Math.random() - 0.5) * 2 * (canvas.height / 400);
       }
     }
     
@@ -154,7 +155,7 @@ const PingPongGame = () => {
         ball.y >= botPaddle.y && ball.y <= botPaddle.y + botPaddle.height) {
       if (ball.vx > 0) {
         ball.vx = -ball.vx;
-        ball.vy += (Math.random() - 0.5) * 2;
+        ball.vy += (Math.random() - 0.5) * 2 * (canvas.height / 400);
       }
     }
     
@@ -163,16 +164,16 @@ const PingPongGame = () => {
       setScore(prev => ({ ...prev, bot: prev.bot + 1 }));
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
-      ball.vx = 5;
-      ball.vy = (Math.random() - 0.5) * 4;
+      ball.vx = 5 * (canvas.width / 800);
+      ball.vy = (Math.random() - 0.5) * 4 * (canvas.height / 400);
     }
     
     if (ball.x >= canvas.width) {
       setScore(prev => ({ ...prev, player: prev.player + 1 }));
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
-      ball.vx = -5;
-      ball.vy = (Math.random() - 0.5) * 4;
+      ball.vx = -5 * (canvas.width / 800);
+      ball.vy = (Math.random() - 0.5) * 4 * (canvas.height / 400);
     }
   };
 
