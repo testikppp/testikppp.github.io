@@ -400,9 +400,9 @@ const PingPongGame = () => {
         {/* Header */}
         <div className="text-center mb-4 md:mb-6">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-            NEON PONG
+            {t('title')}
           </h1>
-          <p className="text-sm md:text-base text-gray-300">Ultimate RGB Ping Pong Experience</p>
+          <p className="text-sm md:text-base text-gray-300">{t('subtitle')}</p>
         </div>
 
         {/* Game Area */}
