@@ -568,11 +568,30 @@ const PingPongGame = () => {
         {showSettings && (
           <div className="flex justify-center mb-4 md:mb-6">
             <Card className="bg-gray-800/95 border-cyan-400/50 p-4 md:p-6 max-w-lg w-full mx-2">
-              <h3 className="text-xl md:text-2xl font-bold text-cyan-400 mb-4 text-center">🎮 GAME SETTINGS</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-cyan-400 mb-4 text-center">{t('gameSettings')}</h3>
               
               <div className="space-y-6">
                 <div>
-                  <label className="block text-white text-base md:text-lg font-semibold mb-3">DIFFICULTY LEVEL</label>
+                  <label className="block text-white text-base md:text-lg font-semibold mb-3">{t('language')}</label>
+                  <div className="grid grid-cols-2 gap-2 md:gap-3">
+                    {['English', 'Russian'].map(lang => (
+                      <Button
+                        key={lang}
+                        onClick={() => setSettings(prev => ({ ...prev, language: lang }))}
+                        className={`px-4 md:px-6 py-3 md:py-4 text-base md:text-lg font-semibold ${
+                          settings.language === lang
+                            ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white'
+                            : 'bg-gray-700 hover:bg-gray-600 text-gray-200'
+                        }`}
+                      >
+                        {lang === 'English' ? 'English' : 'Русский'}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-white text-base md:text-lg font-semibold mb-3">{t('difficultyLevel')}</label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3">
                     {['Easy', 'Medium', 'Hard'].map(level => (
                       <Button
@@ -584,14 +603,14 @@ const PingPongGame = () => {
                             : 'bg-gray-700 hover:bg-gray-600 text-gray-200'
                         }`}
                       >
-                        {level}
+                        {t(level.toLowerCase())}
                       </Button>
                     ))}
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-white text-base md:text-lg font-semibold mb-3">WIN CONDITION</label>
+                  <label className="block text-white text-base md:text-lg font-semibold mb-3">{t('winCondition')}</label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3">
                     {[5, 10, 20].map(points => (
                       <Button
@@ -603,7 +622,7 @@ const PingPongGame = () => {
                             : 'bg-gray-700 hover:bg-gray-600 text-gray-200'
                         }`}
                       >
-                        {points} Points
+                        {points} {t('points')}
                       </Button>
                     ))}
                   </div>
@@ -617,37 +636,37 @@ const PingPongGame = () => {
         {showStats && (
           <div className="flex justify-center mb-4 md:mb-6">
             <Card className="bg-gray-800/95 border-green-400/50 p-4 md:p-6 max-w-2xl w-full mx-2">
-              <h3 className="text-xl md:text-2xl font-bold text-green-400 mb-4 text-center">📊 GAME STATISTICS</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-green-400 mb-4 text-center">{t('gameStatistics')}</h3>
               
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-cyan-400/30">
                   <Target className="h-8 w-8 text-cyan-400 mx-auto mb-2" />
                   <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.gamesPlayed}</p>
-                  <p className="text-xs md:text-sm text-cyan-400">Games Played</p>
+                  <p className="text-xs md:text-sm text-cyan-400">{t('gamesPlayed')}</p>
                 </div>
                 
                 <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-green-400/30">
                   <Trophy className="h-8 w-8 text-green-400 mx-auto mb-2" />
                   <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.wins}</p>
-                  <p className="text-xs md:text-sm text-green-400">Wins</p>
+                  <p className="text-xs md:text-sm text-green-400">{t('wins')}</p>
                 </div>
                 
                 <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-red-400/30">
                   <TrendingUp className="h-8 w-8 text-red-400 mx-auto mb-2" />
                   <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.losses}</p>
-                  <p className="text-xs md:text-sm text-red-400">Losses</p>
+                  <p className="text-xs md:text-sm text-red-400">{t('losses')}</p>
                 </div>
                 
                 <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-yellow-400/30">
                   <div className="text-2xl mb-2">🏆</div>
                   <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.bestWinStreak}</p>
-                  <p className="text-xs md:text-sm text-yellow-400">Best Streak</p>
+                  <p className="text-xs md:text-sm text-yellow-400">{t('bestStreak')}</p>
                 </div>
                 
                 <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-purple-400/30">
                   <div className="text-2xl mb-2">🔥</div>
                   <p className="text-2xl md:text-3xl font-bold text-white">{gameStats.currentWinStreak}</p>
-                  <p className="text-xs md:text-sm text-purple-400">Current Streak</p>
+                  <p className="text-xs md:text-sm text-purple-400">{t('currentStreak')}</p>
                 </div>
                 
                 <div className="text-center p-3 bg-gray-700/50 rounded-lg border border-pink-400/30">
@@ -655,14 +674,14 @@ const PingPongGame = () => {
                   <p className="text-2xl md:text-3xl font-bold text-white">
                     {gameStats.gamesPlayed > 0 ? Math.round((gameStats.wins / gameStats.gamesPlayed) * 100) : 0}%
                   </p>
-                  <p className="text-xs md:text-sm text-pink-400">Win Rate</p>
+                  <p className="text-xs md:text-sm text-pink-400">{t('winRate')}</p>
                 </div>
               </div>
               
               <div className="mt-4 text-center">
                 <Button 
                   onClick={() => {
-                    if (window.confirm('Are you sure you want to reset all statistics?')) {
+                    if (window.confirm(t('resetConfirm'))) {
                       const resetStats = {
                         gamesPlayed: 0,
                         wins: 0,
@@ -676,7 +695,7 @@ const PingPongGame = () => {
                   }}
                   className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-2 text-sm"
                 >
-                  Reset Stats
+                  {t('resetStats')}
                 </Button>
               </div>
             </Card>
