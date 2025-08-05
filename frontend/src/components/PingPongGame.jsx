@@ -463,83 +463,105 @@ const PingPongGame = () => {
         <div className="flex justify-center mb-4 md:mb-6">
           <div className="flex items-center space-x-4 md:space-x-8">
             <div className="text-center">
-              <p className="text-cyan-400 text-sm md:text-lg font-semibold">PLAYER</p>
+              <p className="text-cyan-400 text-sm md:text-lg font-semibold">{t('player')}</p>
               <p className="text-2xl md:text-4xl font-bold text-white">{score.player}</p>
             </div>
             <div className="text-3xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
-              VS
+              {t('vs')}
             </div>
             <div className="text-center">
-              <p className="text-pink-400 text-sm md:text-lg font-semibold">BOT</p>
+              <p className="text-pink-400 text-sm md:text-lg font-semibold">{t('bot')}</p>
               <p className="text-2xl md:text-4xl font-bold text-white">{score.bot}</p>
             </div>
           </div>
         </div>
 
-        {/* Mobile-First Control Layout */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 mb-4 md:mb-6">
+        {/* Horizontal Control Layout */}
+        <div className="flex flex-col lg:flex-row justify-center items-center gap-6 md:gap-12 mb-4 md:mb-6">
           
-          {/* Paddle Controls - Large and Touch Friendly */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-cyan-400 text-center font-semibold text-sm md:text-base">PADDLE CONTROL</h3>
-            <div className="flex flex-col gap-3">
-              <Button 
-                onMouseDown={() => movePlayerPaddle('up')}
-                onTouchStart={(e) => {
-                  e.preventDefault();
-                  movePlayerPaddle('up');
-                }}
-                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
-                disabled={gameState !== 'playing'}
-              >
-                ↑ UP
-              </Button>
-              <Button 
-                onMouseDown={() => movePlayerPaddle('down')}
-                onTouchStart={(e) => {
-                  e.preventDefault();
-                  movePlayerPaddle('down');
-                }}
-                className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 md:px-12 py-4 md:py-6 text-xl md:text-2xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
-                disabled={gameState !== 'playing'}
-              >
-                ↓ DOWN
-              </Button>
-            </div>
-          </div>
-          
-          {/* Game Controls - Large and Accessible */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-purple-400 text-center font-semibold text-sm md:text-base">GAME CONTROL</h3>
-            <div className="flex flex-col gap-3">
-              <Button 
-                onClick={gameState === 'playing' ? pauseGame : startGame}
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
-              >
-                {gameState === 'playing' ? <Pause className="mr-3 h-6 w-6" /> : <Play className="mr-3 h-6 w-6" />}
-                {gameState === 'playing' ? 'PAUSE' : 'PLAY'}
-              </Button>
+          {/* Left Side - Settings Button (Hidden during gameplay) */}
+          {gameState !== 'playing' && (
+            <div className="order-3 lg:order-1">
               <Button 
                 onClick={() => setShowSettings(!showSettings)}
-                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full lg:w-auto"
               >
                 <Settings className="mr-3 h-6 w-6" />
-                SETTINGS
+                {t('settings')}
               </Button>
+            </div>
+          )}
+          
+          {/* Center - Game Controls */}
+          <div className="flex flex-col lg:flex-row gap-4 md:gap-8 order-1 lg:order-2">
+            
+            {/* Paddle Controls - Horizontal */}
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="text-cyan-400 text-center font-semibold text-sm md:text-base">{t('paddleControl')}</h3>
+              <div className="flex gap-3">
+                <Button 
+                  onMouseDown={() => movePlayerPaddle('up')}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    movePlayerPaddle('up');
+                  }}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px]"
+                  disabled={gameState !== 'playing'}
+                >
+                  {t('up')}
+                </Button>
+                <Button 
+                  onMouseDown={() => movePlayerPaddle('down')}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    movePlayerPaddle('down');
+                  }}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px]"
+                  disabled={gameState !== 'playing'}
+                >
+                  {t('down')}
+                </Button>
+              </div>
+            </div>
+            
+            {/* Game Control Buttons - Horizontal */}
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="text-purple-400 text-center font-semibold text-sm md:text-base">{t('gameControl')}</h3>
+              <div className="flex gap-3">
+                <Button 
+                  onClick={gameState === 'playing' ? pauseGame : startGame}
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px]"
+                >
+                  {gameState === 'playing' ? <Pause className="mr-3 h-6 w-6" /> : <Play className="mr-3 h-6 w-6" />}
+                  {gameState === 'playing' ? t('pause') : t('play')}
+                </Button>
+                
+                {/* Auto Complete Button - Only during gameplay */}
+                {gameState === 'playing' && (
+                  <Button 
+                    onClick={autoCompleteGame}
+                    className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px]"
+                  >
+                    <RotateCcw className="mr-3 h-6 w-6" />
+                    {t('autoComplete')}
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Stats Button */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-green-400 text-center font-semibold text-sm md:text-base">STATISTICS</h3>
-            <Button 
-              onClick={() => setShowStats(!showStats)}
-              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full md:w-auto"
-            >
-              <Trophy className="mr-3 h-6 w-6" />
-              STATS
-            </Button>
-          </div>
+          {/* Right Side - Stats Button (Hidden during gameplay) */}
+          {gameState !== 'playing' && (
+            <div className="order-2 lg:order-3">
+              <Button 
+                onClick={() => setShowStats(!showStats)}
+                className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold min-h-[60px] md:min-h-[80px] w-full lg:w-auto"
+              >
+                <Trophy className="mr-3 h-6 w-6" />
+                {t('stats')}
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Settings Panel */}
