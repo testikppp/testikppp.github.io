@@ -369,10 +369,29 @@ const PingPongGame = () => {
   const startGame = () => {
     resetGame();
     setGameState('playing');
+    setShowSettings(false);
+    setShowStats(false);
   };
 
   const pauseGame = () => {
     setGameState(gameState === 'playing' ? 'paused' : 'playing');
+  };
+
+  const autoCompleteGame = () => {
+    // End the game immediately with current scores
+    const playerWon = score.player > score.bot;
+    setGameStats(prev => ({
+      ...prev,
+      gamesPlayed: prev.gamesPlayed + 1,
+      wins: playerWon ? prev.wins + 1 : prev.wins,
+      losses: playerWon ? prev.losses : prev.losses + 1,
+      totalScore: prev.totalScore + score.player,
+      currentWinStreak: playerWon ? prev.currentWinStreak + 1 : 0,
+      bestWinStreak: playerWon && prev.currentWinStreak + 1 > prev.bestWinStreak 
+        ? prev.currentWinStreak + 1 
+        : prev.bestWinStreak
+    }));
+    setGameState('gameOver');
   };
 
   return (
