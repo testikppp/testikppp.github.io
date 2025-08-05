@@ -420,10 +420,10 @@ const PingPongGame = () => {
             {gameState === 'menu' && (
               <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
                 <div className="text-center px-4">
-                  <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 mb-4">Ready to Play?</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 mb-4">{t('readyToPlay')}</h2>
                   <Button onClick={startGame} className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg">
                     <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                    Start Game
+                    {t('startGame')}
                   </Button>
                 </div>
               </div>
@@ -432,10 +432,10 @@ const PingPongGame = () => {
             {gameState === 'paused' && (
               <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
                 <div className="text-center px-4">
-                  <h2 className="text-2xl md:text-4xl font-bold text-yellow-400 mb-4">PAUSED</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold text-yellow-400 mb-4">{t('paused')}</h2>
                   <Button onClick={pauseGame} className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg">
                     <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                    Resume
+                    {t('resume')}
                   </Button>
                 </div>
               </div>
@@ -444,14 +444,14 @@ const PingPongGame = () => {
             {gameState === 'gameOver' && (
               <div className="absolute inset-0 bg-black/70 rounded-lg flex items-center justify-center">
                 <div className="text-center px-4">
-                  <h2 className="text-2xl md:text-4xl font-bold text-pink-400 mb-2">GAME OVER</h2>
+                  <h2 className="text-2xl md:text-4xl font-bold text-pink-400 mb-2">{t('gameOver')}</h2>
                   <p className="text-xl md:text-2xl text-white mb-2">
-                    {score.player > score.bot ? '🏆 YOU WIN!' : '🤖 BOT WINS!'}
+                    {score.player > score.bot ? t('youWin') : t('botWins')}
                   </p>
-                  <p className="text-sm md:text-lg text-gray-300 mb-4 md:mb-6">Final Score: {score.player} - {score.bot}</p>
+                  <p className="text-sm md:text-lg text-gray-300 mb-4 md:mb-6">{t('finalScore')} {score.player} - {score.bot}</p>
                   <Button onClick={() => setGameState('menu')} className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg">
                     <RotateCcw className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                    Play Again
+                    {t('playAgain')}
                   </Button>
                 </div>
               </div>
