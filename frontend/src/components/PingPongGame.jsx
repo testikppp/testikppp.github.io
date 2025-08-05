@@ -10,7 +10,8 @@ const PingPongGame = () => {
   const [score, setScore] = useState({ player: 0, bot: 0 });
   const [settings, setSettings] = useState({
     difficulty: 'Medium',
-    winCondition: 10
+    winCondition: 10,
+    language: 'English'
   });
   const [showSettings, setShowSettings] = useState(false);
   const [showStats, setShowStats] = useState(false);
